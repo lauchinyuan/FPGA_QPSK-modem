@@ -4,47 +4,49 @@
 //输入的时钟频率为和采样率相同
 //////////////////////////////////////////////////////////////////////////////////
 module iq_comb
-	#(parameter SAMPLE = 100) //未分流时，每一个bit采样数
 	(
 		input wire			clk			,
 		input wire 			rst_n		,
-		input wire 			sample_d_I	,
-		input wire 			sample_d_Q	,
+		input wire 			sync_I		,
+		input wire 			sync_Q		,
+		input wire 			sync_flag_i	,  //从Gardner位同步器输入的同步标志
 		
-		output wire			demo_ser_o
+		output wire			demo_ser_o	,
+		output reg	 		sync_flag_o	   //输出到后续模块的同步输出数据
     );
 	
-/* 	reg 		clk_500k	; 
-	reg [5:0] 	cnt_500k	; */
-	
 	// 判断串行输出的是I路还是Q路,0代表Q, 1代表I
-	reg 		iq_switch	; 
-	reg [7:0]	sample_cnt	;
-	
-	
-	//计数器，每SAMPLE个周期变换一个通道
-	//sample_cnt
-	always @ (posedge clk or negedge rst_n) begin
-		if(rst_n == 1'b0) begin
-			sample_cnt <= 8'd0;
-		end else if(sample_cnt == SAMPLE - 1) begin
-			sample_cnt <= 8'd0;
-		end else begin
-			sample_cnt <= sample_cnt + 8'd1;
-		end
-	end
+	reg 		iq_switch	;
+	reg			sync_I_d	;
+	reg			sync_Q_d	;
 	
 	//iq_switch
 	always @ (posedge clk or negedge rst_n) begin
 		if(rst_n == 1'b0) begin
 			iq_switch <= 1'b0;
-		end else if(sample_cnt == SAMPLE - 2) begin
+		end else if(sync_flag_i) begin
 			iq_switch <= ~iq_switch;
 		end else begin
 			iq_switch <= iq_switch;
 		end
 	end	
 	
-	assign demo_ser_o = (iq_switch)? sample_d_I: sample_d_Q;
+	//将输入的同步信号sync_flag_i打一拍得到输出的同步信号sync_flag_o
+	//并将输入同步数据和输出同步数据都打一拍
+	//使得sync_flag_o与输出数据的变化位置对齐
+	always @ (posedge clk or negedge rst_n) begin
+		if(rst_n == 1'b0) begin
+			sync_flag_o <= 1'b0	;
+			sync_I_d <= 1'b0	;
+			sync_Q_d <= 1'b0	;
+		end else begin
+			sync_flag_o <= sync_flag_i	;
+			sync_I_d <= sync_I			;
+			sync_Q_d <= sync_Q			;
+		end
+	end
+	
+	//依据iq_switch交替选择输出通道，输出数据比原先延迟一个时钟周期
+	assign demo_ser_o = (iq_switch)? sync_I_d: sync_Q_d;
 	
 endmodule

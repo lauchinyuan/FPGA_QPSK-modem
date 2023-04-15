@@ -1,7 +1,7 @@
 module clk_gen
 #(parameter CNT_MAX = 26'd49_999_999)
 (
-	input wire			clk		,
+	input wire			clk		,  //50Mhz时钟
 	input wire			rst_n	,
 	
 	output reg[7:0] 	s_dec	,

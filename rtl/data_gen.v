@@ -12,7 +12,8 @@ module data_gen
 
 	wire [7:0]	valid	; //校验和
 	
-	assign valid = 8'hff + dec_s + dec_m + dec_h; //计算校验和
-	assign para_o = {8'hff, dec_h, dec_m, dec_s, valid};
+	//帧头定为1100_1100,在IQ分流后两路数据都将会是1010，交替的0/1有利于Gardner位同步
+	assign valid = 8'hcc + dec_s + dec_m + dec_h; //计算校验和
+	assign para_o = {8'hcc, dec_h, dec_m, dec_s, valid};
 
 endmodule
