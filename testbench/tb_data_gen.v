@@ -12,7 +12,9 @@ module tb_data_gen();
 	
 	//23时24分25秒
 
-	data_gen data_gen_inst
+	data_gen 
+	#(.HEADER(8'hcc))  //帧头	
+	data_gen_inst
 	(
 		.dec_s	(dec_s	),
 		.dec_m	(dec_m	),
