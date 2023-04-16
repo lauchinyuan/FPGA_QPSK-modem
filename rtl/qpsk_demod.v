@@ -1,5 +1,4 @@
 module qpsk_demod
-	#(parameter SAMPLE = 100) //未分流时，每一个bit采样数
 	(
 		input wire			clk		,
 		input wire 			rst_n	,
@@ -15,14 +14,14 @@ module qpsk_demod
 	wire [29:0]	demo_Q		;
 	wire [47:0]	filtered_I	;
 	wire [47:0]	filtered_Q	;	
-	wire		sample_d_I	;
-	wire		sample_d_Q	;
+	wire		sync_I		;
+	wire		sync_Q		;
+	wire		sync_flag	;
+	wire		sync_flag_d1;
 	reg	 [7:0]	sample_cnt	;  
 	wire		demo_ser_o	;
-	
-	
-	wire [14:0]	filtered_I_cut	;
-	wire [14:0]	filtered_Q_cut	;	
+	wire 		header_flag	;
+	wire 		valid_flag	;
 
 	//产生500kHz采样时钟
 	sam_clk_gen sam_clk_gen_inst(
@@ -88,54 +87,50 @@ module qpsk_demod
 		.m_axis_data_tdata(filtered_Q)    // output wire [47 : 0] m_axis_data_tdata
 	);	
 	
-	//sample_cnt
-	//用于判断每个bit的抽样时间
-	//由于分为IQ两路后相当于采样个数为2*SAMPLE
-	//故在sample_cnt == (SAMPLE - 1)时判决，即为中间时刻
-	always @ (posedge clk_500k or negedge rst_n) begin
-		if(rst_n == 1'b0) begin
-			sample_cnt <= 8'd0;
-		end else if(sample_cnt == SAMPLE - 1) begin
-			sample_cnt <= 8'd0;
-		end else begin
-			sample_cnt <= sample_cnt + 8'd1;
-		end
-	end
 	
-	//抽样判决，判决门限为0,判决时刻为sample_cnt == (SAMPLE - 1)时
-	//所以判断有符号数的符号位即可
-	assign sample_d_I = (sample_cnt == (SAMPLE - 1))?(~filtered_I[47]):sample_d_I;
-	assign sample_d_Q = (sample_cnt == (SAMPLE - 1))?(~filtered_Q[47]):sample_d_Q;
+	//Gardner位同步，并进行抽样判决，输出判决后的两路信号
+	gardner_sync gardner_sync_inst
+	(
+		.clk			(clk_500k			),  //500kHz
+		.rst_n			(rst_n				),
+		.data_in_I		(filtered_I[42:28]	),  //截断处理,并将截断后数据加载到Gardner位同步模块
+		.data_in_Q		(filtered_Q[42:28]	),
+
+		.sync_out_I		(sync_I				),
+		.sync_out_Q		(sync_Q				),
+		.sync_flag	   	(sync_flag	   		)	//最佳抽样判决时刻标志
+	);
 	
 	//合并IQ两路
 	iq_comb 
-	#(.SAMPLE(SAMPLE)) //未分流时，每一个bit采样数
+	#(.SAMPLE(100))   //每个码元的采样数
 	iq_comb_inst
 	(
 		.clk			(clk_500k	),
 		.rst_n			(rst_n		),
-		.sample_d_I		(sample_d_I	),
-		.sample_d_Q		(sample_d_Q	),
-
-		.demo_ser_o	    (demo_ser_o	)
-    );	
-	
-	//串并转换
-	ser2para
-	#(.SAMPLE(100)) //每一个bit采样样本数
-	ser2para_inst
-	(
-		.clk		(clk_500k),
-		.rst_n		(rst_n	),
-		.ser_i		(demo_ser_o),
-                     
-		.para_o     (para_out )
+		.sync_I			(sync_I		),
+		.sync_Q			(sync_Q		),
+		.sync_flag_i	(sync_flag	),  //从Gardner位同步器输入的同步标志
+                         
+		.demo_ser_o		(demo_ser_o	),
+		.sync_flag_o	(sync_flag_d1)   //输出到后续模块的同步输出数据
     );
+
+	//数据有效性检测，并输出最终的并行40bit结果
+	data_valid 
+	#(.HEADER(8'b1100_1100))  //帧头
+	data_valid_inst
+	(
+		.clk			(clk_500k		),  //500KHz
+		.rst_n			(rst_n			),
+		.ser_i			(demo_ser_o		),  //从iq_comb模块输入的串行数据
+		.sync_flag		(sync_flag_d1	),  //同步标志
+
+		.header_flag	(header_flag	),  //侦测到正确的帧头
+		.valid_flag		(valid_flag		),  //帧头和校验和都正确标志，代表有效数据
+		.valid_data_o   (para_out   	)	//将有效数据进行并行输出
+	);
 	
-	
-	//截断处理
-	assign filtered_I_cut = filtered_I[42:28];
-	assign filtered_Q_cut = filtered_Q[42:28];
 	
 	
 

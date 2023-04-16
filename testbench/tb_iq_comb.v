@@ -22,25 +22,25 @@ module tb_iq_comb();
 		sync_Q <= 1'b0;	
 	#2000 //sync_flag_i信号在本案例中一次维持1个时钟周期
 		sync_flag_i <= 1'b0;
-	#20000
+	#440000
 		sync_flag_i <= 1'b1;
 		sync_I <= 1'b1;  //第二组IQ数据
 		sync_Q <= 1'b0;
 	#2000 //sync_flag_i信号在本案例中一次维持1个时钟周期
 		sync_flag_i <= 1'b0;
-	#20000
+	#440000
 		sync_flag_i <= 1'b1;
 		sync_I <= {$random} % 2;  //第三组IQ数据
 		sync_Q <= {$random} % 2;
 	#2000 //sync_flag_i信号在本案例中一次维持1个时钟周期
 		sync_flag_i <= 1'b0;
-	#20000
+	#440000
 		sync_flag_i <= 1'b1;
 		sync_I <= {$random} % 2;  //第四组IQ数据
 		sync_Q <= {$random} % 2;
 	#2000 //sync_flag_i信号在本案例中一次维持1个时钟周期
 		sync_flag_i <= 1'b0;
-	#20000
+	#440000
 		sync_flag_i <= 1'b1;
 		sync_I <= {$random} % 2;  //第五组IQ数据
 		sync_Q <= {$random} % 2;
@@ -50,7 +50,9 @@ module tb_iq_comb();
 	
 	always #1000 clk = ~clk; //500kHz时钟
 
-	iq_comb iq_comb_inst
+	iq_comb 
+	#(.SAMPLE(100))
+	iq_comb_inst
 	(
 		.clk			(clk		),
 		.rst_n			(rst_n		),

@@ -25,7 +25,7 @@ module data_valid
 		if(rst_n == 1'b0) begin
 			shift_reg <= 40'b0;
 		end else if(sync_flag) begin
-			shift_reg <= {ser_i,shift_reg[39:1]}; //数据由高位向低位移动
+			shift_reg <= {shift_reg[38:0],ser_i}; //IQ数据高位先发,故接收数据由低位向高位移动
 		end else begin
 			shift_reg <= shift_reg;
 		end

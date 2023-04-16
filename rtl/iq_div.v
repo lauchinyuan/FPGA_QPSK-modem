@@ -27,6 +27,13 @@ module iq_div
 	
 	reg		 	iq_switch	;  //为0时代表采集Q路数据，为1时代表采集I路数据
 	
+	//I、Q两路输出的比特数据
+	//首先将采集的数据缓存到I_bit_temp,Q_bit_temp
+	//接着在同一个时钟利用缓存中的数据更新I_bit
+	//使得IQ两路输出数据对齐，有利于后续抽样判决
+	reg			I_bit_temp		;
+	reg			Q_bit_temp		;
+	
 	reg			I_bit		;
 	reg			Q_bit		;
 	
@@ -74,15 +81,25 @@ module iq_div
 		if(rst_n == 1'b0) begin
 			I_bit <= 1'b0;
 			Q_bit <= 1'b0;
+			I_bit_temp <= 1'b0;
+			Q_bit_temp <= 1'b0;
 		end else begin
 			case(iq_switch) 
-				1'b0: begin //采集Q路
+				//到下一次采集周期再更新，使得IQ两路输出数据对齐，有利于后续抽样判决
+				//因为第一次采样两路数据的其中一路时，另外一路是无效数据
+				//为了使得两路数据不错开，需要对其中一路再延时一次
+				1'b0: begin //采集Q路,暂存到I_bit_temp
 					I_bit <= I_bit;
-					Q_bit <= ser_i;
-				end
-				1'b1: begin //采集I路
 					Q_bit <= Q_bit;
-					I_bit <= ser_i;
+ 					Q_bit_temp <= ser_i;
+					I_bit_temp <= I_bit_temp;
+					
+				end
+				1'b1: begin //采集I路,暂存到I_bit_temp,更新IQ两路
+					Q_bit <= Q_bit_temp;
+					I_bit <= I_bit_temp;
+ 					I_bit_temp <= ser_i;
+					Q_bit_temp <= Q_bit_temp;
 				end				
 			endcase
 		end

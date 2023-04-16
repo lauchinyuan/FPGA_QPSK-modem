@@ -23,7 +23,7 @@ module tb_data_valid();
 		rst_n <= 1'b1;
 		for(i=0;i<=39;i=i+1) begin
 			#8000
-			ser_i <= data[i];
+			ser_i <= data[39 - i]; //高位先入
 			sync_flag <= 1'b1;
 			#2000  //sync_flag设置为持续一个周期
 			sync_flag <= 1'b0;
