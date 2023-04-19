@@ -2,12 +2,12 @@
 //顶层模块,产生时钟数据,并通过QPSK调制解调器进行发送接收
 //这一例子里QPSK调制解调在同一个FPGA设备上实现
 module qpsk_clk_top
-#(parameter HEADER = 8'hcc)  //帧头
+#(parameter HEADER = 8'hcc,   //帧头
+			CNT_MAX = 26'd49_999_999) //测试速度,正常情况下设置为26'd49_999_999时每1s更新一次数据
 (
 	input wire 			clk			,  //50MHz
 	input wire 			rst_n		,
 	
-	output wire [39:0]	para_out	,	//输出数据,包含时分秒
 	output wire [5:0]	sel			,
 	output wire [7:0]	dig			
 );
@@ -16,12 +16,14 @@ module qpsk_clk_top
 	wire [7:0]			m_dec	;  //分数据
 	wire [7:0]			h_dec	;  //秒数据
 	wire [39:0]			para_dat;
+	wire [39:0]			para_out;	//输出数据,包含时分秒
+
 
 	
 	
 	//产生时分秒数据
 	clk_gen 
-	#(.CNT_MAX(26'd49_999_999))
+	#(.CNT_MAX(CNT_MAX))  
 	clk_gen_inst
 	(
 		.clk		(clk	),  //50Mhz时钟
@@ -56,7 +58,9 @@ module qpsk_clk_top
     );
 	
 	//解调
-	qpsk_demod qpsk_demod_inst
+	qpsk_demod 
+	#(.HEADER(HEADER))  //帧头	
+	qpsk_demod_inst
 	(
 		.clk		(clk		),
 		.rst_n		(rst_n		),

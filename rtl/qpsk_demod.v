@@ -1,4 +1,5 @@
 module qpsk_demod
+	#(parameter HEADER = 8'hcc)  //帧头
 	(
 		input wire			clk		,
 		input wire 			rst_n	,
@@ -118,7 +119,7 @@ module qpsk_demod
 
 	//数据有效性检测，并输出最终的并行40bit结果
 	data_valid 
-	#(.HEADER(8'b1100_1100))  //帧头
+	#(.HEADER(HEADER))  //帧头
 	data_valid_inst
 	(
 		.clk			(clk_500k		),  //500KHz

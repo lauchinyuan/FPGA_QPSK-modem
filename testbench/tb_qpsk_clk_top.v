@@ -2,7 +2,10 @@
 module tb_qpsk_clk_top();
 	reg			clk		;
 	reg			rst_n	;
-	wire [39:0]	para_out;
+	
+	wire [5:0]	sel		;
+	wire [7:0]	dig		;
+
 	
 	initial begin
 		clk = 1'b1;
@@ -13,13 +16,15 @@ module tb_qpsk_clk_top();
 	
 	always #10 clk = ~clk;
 	
-	qpsk_clk_top 
-	#(.HEADER(8'hcc))  //帧头
+	qpsk_clk_top
+	#(.HEADER(8'hcc),    //帧头
+	  .CNT_MAX(26'd49_999_9)) //仿真中10ms更新一次数据
 	qpsk_clk_top_inst
 	(
-		.clk			(clk		),  //50MHz
-		.rst_n			(rst_n		),
+		.clk			(clk	),  //50MHz
+		.rst_n			(rst_n	),
 
-		.para_out		(para_out	)	//输出数据,包含时分秒
+		.sel			(sel	),
+		.dig			(dig	)
 	);
 endmodule
