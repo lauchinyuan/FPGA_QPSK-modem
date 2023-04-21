@@ -57,7 +57,7 @@ QPSK信号四个不同相位可以表示2bit信息，故一个QPSK调制信号�
 
 其中的关键部件是成形滤波器，成形滤波的作用是平滑波形效果，提高频谱的利用率，并消除码间串扰。本设计中成型滤波为平方根升余弦低通FIR滤波器。通过MATLAB Filter Designer工具，配置相应的滤波器参数(如滤波器阶数，窗函数等)可以生成滤波器抽头系数，将生成的抽头系数文件(例如Vivado支持的coe文件)导入到FIR滤波器IP核，并配置相应的IP核参数，即可实例化调用相应IP实现成形滤波器。对于本设计中的其他滤波器也是同样的设计思路。
 
-![QPSK调制器结构](image\mod_structure.png)
+![QPSK调制器结构](image/mod_structure.png)
 
 <center>图2. QPSK调制器结构</center>
 
