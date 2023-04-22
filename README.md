@@ -39,7 +39,9 @@
 
 #### QPSK基本原理
 
-QPSK全称为正交相移键控（Quadrature Phase Shift Keying），简单来说就是利用四种不同的相位来代表不同的信息的数字调制解调技术。其信号表示为：$$S_i(t) = Acos(\omega_ct+\theta_i),i=1,2,3,4,0<t<T_s$$
+QPSK全称为正交相移键控（Quadrature Phase Shift Keying），简单来说就是利用四种不同的相位来代表不同的信息的数字调制解调技术。其信号表示为：
+
+$$S_i(t) = Acos(\omega_ct+\theta_i)$$
 
 #### 调制端设计
 
@@ -94,7 +96,9 @@ $$
 - 采样率：500kHz
 - 发送端每bit采样100次
 
-综上，每秒可以传送的帧数为：$N_f =500000 \div (40\times 100)=125$
+综上，每秒可以传送的帧数为：
+
+$$N_f =500000 \div (40\times 100)=125$$
 
 ### 进展规划
 
