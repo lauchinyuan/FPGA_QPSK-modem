@@ -40,9 +40,11 @@
 #### QPSK基本原理
 
 QPSK全称为正交相移键控（Quadrature Phase Shift Keying），简单来说就是利用四种不同的相位来代表不同的信息的数字调制解调技术。其信号表示为：
-$$
+
+```math
 S_i(t) = Acos(\omega_ct+\theta_i),i=1,2,3,4,0<t<T_s
-$$
+```
+
 QPSK信号四个不同相位可以表示2bit信息，故一个QPSK调制信号产生由相邻的两位数据流决定。
 
 #### 调制端设计
