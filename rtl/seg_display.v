@@ -47,7 +47,7 @@ module seg_display
 	//扫描数码管的选择信号
 	always @ (posedge clk or negedge rst_n) begin
 		if(!rst_n) begin
-			sel <= 6'b111110;
+			sel <= 6'b000001;
 		end else if(cnt_sel == CNT_SEL_MAX) begin
 			sel <= {sel[4:0],sel[5]};  //循环左移
 		end else begin
@@ -60,22 +60,22 @@ module seg_display
 	//依据sel信号选择需要输出的数据
 	always @ (*) begin
 		case(sel) 
-			6'b111110: begin
+			6'b000001: begin
 				display_data = in0;
 			end
-			6'b111101: begin
+			6'b000010: begin
 				display_data = in1;
 			end
-			6'b111011: begin
+			6'b000100: begin
 				display_data = in2;
 			end
-			6'b110111: begin
+			6'b001000: begin
 				display_data = in3;
 			end
-			6'b101111: begin
+			6'b010000: begin
 				display_data = in4;
 			end
-			6'b011111: begin
+			6'b100000: begin
 				display_data = in5;
 			end	
 			default: begin

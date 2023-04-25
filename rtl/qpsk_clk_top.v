@@ -16,7 +16,7 @@ module qpsk_clk_top
 	wire [7:0]			m_dec	;  //分数据
 	wire [7:0]			h_dec	;  //秒数据
 	wire [39:0]			para_dat;
-	wire [39:0]			para_out;	//输出数据,包含时分秒
+	wire [39:0]			para_out;  //输出数据,包含时分秒
 
 
 	
