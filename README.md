@@ -218,13 +218,13 @@ $$C_2=\frac{32(B_LT_s)^2}{3}$$
 
 ### 仿真及实验部署
 
-本设计已在Xilinx Kintex-7 FPGA硬件平台上成功部署，在单个FPGA上实现了QPSK调制解调过程。硬件实验平台使用的是博宸精芯Kintex-7基础板开发板，芯片型号为XC7K325T-2FFG676，实验环境如图7所示。
+本设计已在[Xilinx Kintex-7](https://www.xilinx.com/products/silicon-devices/fpga/kintex-7.html) FPGA硬件平台上成功部署，在单个FPGA上实现了QPSK调制解调过程。硬件实验平台使用的是博宸精芯Kintex-7基础板开发板，芯片型号为XC7K325T-2FFG676，实验环境如图7所示。
 
 <img src="image/FPGA_platform.jpg" alt="FPGA_platform" />
 
 <center> 图7. FPGA实验平台</center>
 
-从实际实验上看，在FPGA程序烧录后，开始的三秒钟数据从0秒到1秒到3秒再马上回到2秒，中间误判了一个3秒的数据，同样地在15s之前的数据也偶尔有错，15s之后的数据基本上都可以正常显示，项目文件夹中附有演示视频。
+从实际实验上看，在FPGA程序烧录后，开始的三秒钟数据从0秒到1秒到3秒再马上回到2秒，中间误判了一个3秒的数据，同样地在15s之前的数据也偶尔有错，15s之后的数据基本上都可以正常显示，演示视频参见[YouTube](https://youtu.be/K2LQohgKIu4)。
 
 首先通过MATLAB跑通QPSK调制解调的基本流程，方便确定一些基本参数（如滤波器阶数等），详细MATLAB代码可见本工程所附文件夹。
 
