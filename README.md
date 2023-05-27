@@ -2,7 +2,7 @@
 
 ### 关于本项目
 
-本项目是使用Verilog硬件描述语言编写的可以部署在FPGA平台上的正交相移键控（Quadrature Phase Shift Keying，QPSK）调制解调器，使用的调制方案为IQ正交调制，解调端使用Gardner环实现位同步，costas环载波同步暂未实现，仍在测试中。采用了vivado IP核实现FIR滤波器、乘法器、DDS直接数字频率合成器，这些IP核可以用quartus IP核或者其他厂商提供的IP来替代。
+本项目是使用Verilog硬件描述语言编写的可以部署在FPGA平台上的正交相移键控（Quadrature Phase Shift Keying，QPSK）调制解调器，使用的调制方案为IQ正交调制，解调端使用Gardner环实现位同步，costas环载波同步暂未实现，仍在测试中。采用了vivado IP核实现FIR滤波器、乘法器、DDS直接数字频率合成器，这些IP核可以用quartus IP核或者其他厂商提供的IP来替代，系统功能演示视频参见[Youtube](https://youtu.be/K2LQohgKIu4)，MATLAB基本仿真程序在本工程[matlab](./matlab)文件夹中。
 
 #### 功能说明
 
@@ -42,6 +42,8 @@
 QPSK全称为正交相移键控（Quadrature Phase Shift Keying），简单来说就是利用四种不同的相位来代表不同的信息的数字调制解调技术。其信号表示为：
 
 $$S_i(t) = Acos(\omega_ct+\theta_i),i=0,1,2,3$$
+
+有关QPSK的详细原理在此先不赘述，相关内容可见[wikipedia](https://en.wikipedia.org/wiki/Phase-shift_keying#Quadrature_phase-shift_keying_.28QPSK.29)。
 
 #### MATLAB仿真及参数设定
 
