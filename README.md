@@ -1,5 +1,11 @@
 本科学的通信读研了没在做，也算是出于兴趣完成的工程，难免有纰漏，后续会抽空将本工程逐渐完善。若有任何问题，非常欢迎您通过邮箱联系我lauchinyuan@yeah.net，共同探讨学习，不过近来比较忙，回复可能稍慢，见谅。
 
+### 更新说明
+
+- 2023.08.31：有伙伴询问了有关本项目中IP核配置参数细节，现将本工程的IP核配置文件存于[xci](./xci)文件夹中，在vivado中作为source文件添加即可完成对IP core的配置。若出现"IP is locked"提示，点击vivado上方Reports -> Report IP Status，更新IP core即可，**此外需注意更改FIR滤波器配置时用到的coe文件的文件路径**。
+
+  若您暂无vivado，需要查看有关IP core的配置信息，可以查看[ip_core_config](./ip_core_config)文件夹，内含以图片方式保存的IP核配置信息，由于近来较忙，先不对其展开说明，以后再说(🕊)。
+
 ### 关于本项目
 
 本项目是使用Verilog硬件描述语言编写的可以部署在FPGA平台上的正交相移键控（Quadrature Phase Shift Keying，QPSK）调制解调器，使用的调制方案为IQ正交调制，解调端使用Gardner环实现位同步，costas环载波同步暂未实现，仍在测试中。采用了vivado IP核实现FIR滤波器、乘法器、DDS直接数字频率合成器，这些IP核可以用quartus IP核或者其他厂商提供的IP来替代，系统功能演示视频参见[Youtube](https://youtu.be/K2LQohgKIu4)，MATLAB基本仿真程序在本工程[matlab](./matlab)文件夹中。
