@@ -5,8 +5,8 @@ clc;                        % 清屏
 M=40;                       % 产生码元数    
 L=100;                      % 每个码元采样次数
 fc=50e3;                    % 载波频率50kHz 
-%flocal = 50010;             % 接收端的本地载波频率
-flocal = fc;                % 模拟载波频率已经同步的情况
+% flocal = 50010;           % 接收端的本地载波频率
+flocal = 50010;             % 模拟载波频率已经同步的情况
 Rb =5e3;                    % 码元速率                   
 Ts=1/Rb;                    % 码元的持续时间
 dt=Ts/L;                    % 采样间隔
@@ -61,64 +61,73 @@ qpsk=psk1+psk2;                 % QPSK的实现
 qpsk_n=awgn(qpsk,20);       % 信号qpsk中加入白噪声，信噪比为SNR=20dB
 
 %% 解调部分
-carry_sin_local = zeros(1,length(t));
-carry_cos_local = zeros(1,length(t));
-demo_I = zeros(1,length(t));
-demo_Q = zeros(1,length(t));
-filtered_Q = zeros(1,length(t));
-filtered_I = zeros(1,length(t));
+% carry_sin_local = zeros(1,length(t));
+% carry_cos_local = zeros(1,length(t));
+% demo_I = zeros(1,length(t));
+% demo_Q = zeros(1,length(t));
+% filtered_Q = zeros(1,length(t));
+% filtered_I = zeros(1,length(t));
 
 pd = zeros(1,length(t));
 pd_Q = zeros(1,length(t));
 pd_I = zeros(1,length(t));
 err_phase = zeros(1,length(t));
 phase_ctrl= zeros(1,length(t));
-%% 载波同步
-sum_reg = 0;   %累加寄存器
-for Cnt = 1:length(t)
-    % NCO产生本地正余弦载波
-    %产生本地余弦载波
-    carry_cos_local(Cnt) = cos((2*pi*flocal+phase_ctrl(Cnt))*t(Cnt));
-    %产生本地正弦载波
-    carry_sin_local(Cnt) = sin((2*pi*flocal+phase_ctrl(Cnt))*t(Cnt));
+%% 载波同步暂未进行
+f_ctrl = 0;  % 频率修正控制字
+carry_cos_local = cos(2*pi*(flocal+f_ctrl)*t);  % 本地载波暂时和调制端相同
+carry_sin_local = sin(2*pi*(flocal+f_ctrl)*t);  % 本地载波暂时和调制端相同
 
-    
-    % 通过Filter Designer生成了30阶(31个抽头系数)的矩形窗滤波器demo_lowpass
-    % 采样频率为Fs,截止频率为2*Rb
-    filtered_Q(Cnt) = double(filter(demo_lowpass,carry_sin_local(1:Cnt).*qpsk_n(1:Cnt)))*[zeros(Cnt-1,1);1];   %Q路低通滤波
-    filtered_I(Cnt) = double(filter(demo_lowpass,carry_cos_local(1:Cnt).*qpsk_n(1:Cnt)))*[zeros(Cnt-1,1);1];   %I路低通滤波
-    
-    %依据I路符号判断鉴相器Q路输出
-    if(filtered_I(Cnt)>0)
-        pd_Q(Cnt) = filtered_Q(Cnt);
-    else
-        pd_Q(Cnt) = -1*filtered_Q(Cnt);
-    end
-        %依据Q路符号判断鉴相器I路输出
-    if(filtered_Q(Cnt)>0)
-        pd_I(Cnt) = filtered_I(Cnt);
-    else
-        pd_I(Cnt) = -1*filtered_I(Cnt);
-    end
-    pd(Cnt) = pd_Q(Cnt) - pd_I(Cnt);     % 鉴相器输出 
-    
-        %更新累加寄存器
-    if(sum_reg == 100000)
-        %假设累加寄存器的最大值为100000
-        sum_reg = 0;        
-    else
-        sum_reg = sum_reg + pd(Cnt);
-    end
-    %环路滤波器输出
-    err_phase(Cnt) = C1*pd(Cnt)+C2*sum_reg;
-    %调制NCO相位
-    phase_ctrl(Cnt) = phase_ctrl(Cnt) - err_phase(Cnt);
 
-end
+% sum_reg = 0;   %累加寄存器
+% for Cnt = 1:length(t)
+%     % NCO产生本地正余弦载波
+%     %产生本地余弦载波
+%     carry_cos_local(Cnt) = cos((2*pi*flocal+phase_ctrl(Cnt))*t(Cnt));
+%     %产生本地正弦载波
+%     carry_sin_local(Cnt) = sin((2*pi*flocal+phase_ctrl(Cnt))*t(Cnt));
+% 
+%     
+%     % 通过Filter Designer生成了30阶(31个抽头系数)的矩形窗滤波器demo_lowpass
+%     % 采样频率为Fs,截止频率为2*Rb
+%     filtered_Q(Cnt) = double(filter(demo_lowpass,carry_sin_local(1:Cnt).*qpsk_n(1:Cnt)))*[zeros(Cnt-1,1);1];   %Q路低通滤波
+%     filtered_I(Cnt) = double(filter(demo_lowpass,carry_cos_local(1:Cnt).*qpsk_n(1:Cnt)))*[zeros(Cnt-1,1);1];   %I路低通滤波
+%     
+%     %依据I路符号判断鉴相器Q路输出
+%     if(filtered_I(Cnt)>0)
+%         pd_Q(Cnt) = filtered_Q(Cnt);
+%     else
+%         pd_Q(Cnt) = -1*filtered_Q(Cnt);
+%     end
+%         %依据Q路符号判断鉴相器I路输出
+%     if(filtered_Q(Cnt)>0)
+%         pd_I(Cnt) = filtered_I(Cnt);
+%     else
+%         pd_I(Cnt) = -1*filtered_I(Cnt);
+%     end
+%     pd(Cnt) = pd_Q(Cnt) - pd_I(Cnt);     % 鉴相器输出 
+%     
+%         %更新累加寄存器
+%     if(sum_reg == 100000)
+%         %假设累加寄存器的最大值为100000
+%         sum_reg = 0;        
+%     else
+%         sum_reg = sum_reg + pd(Cnt);
+%     end
+%     %环路滤波器输出
+%     err_phase(Cnt) = C1*pd(Cnt)+C2*sum_reg;
+%     %调制NCO相位
+%     phase_ctrl(Cnt) = phase_ctrl(Cnt) - err_phase(Cnt);
+% 
+% end
 
-%利用调整后的本地载波与QPSK信号相乘，用于绘图观察
+%利用调整后的本地载波与QPSK信号相乘
 demo_I=qpsk_n.*carry_cos_local;         % 相干解调，乘以本地相干载波
 demo_Q=qpsk_n.*carry_sin_local;  
+
+filtered_Q = double(filter(demo_lowpass,demo_Q));   %Q路低通滤波
+filtered_I = double(filter(demo_lowpass,demo_I));   %I路低通滤波
+
 %% 抽样判决
 k=0;                        % 设置抽样限值
 sample_d_I=1*(filtered_I>k);     % 滤波后的向量的每个元素和0进行比较，大于0为1，否则为0
