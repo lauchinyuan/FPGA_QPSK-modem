@@ -101,13 +101,13 @@ $$
 \hline
 {I} & {Q} & {S_i(t)}  \\
 \hline
-{+1} & {-1} & {\sqrt{2}cos(2\omega_ct+\pi/4)} \\
+{+1} & {-1} & {\sqrt{2}cos(\omega_ct+\pi/4)} \\
 \hline
-{-1} & {-1} & {\sqrt{2}cos(2\omega_ct+3\pi/4)} \\
+{-1} & {-1} & {\sqrt{2}cos(\omega_ct+3\pi/4)} \\
 \hline
-{-1} & {+1} & {\sqrt{2}cos(2\omega_ct+5\pi/4)} \\
+{-1} & {+1} & {\sqrt{2}cos(\omega_ct+5\pi/4)} \\
 \hline
-{+1} & {+1} & {\sqrt{2}cos(2\omega_ct+7\pi/4)} \\
+{+1} & {+1} & {\sqrt{2}cos(\omega_ct+7\pi/4)} \\
 \hline
 \end{array}
 $$
