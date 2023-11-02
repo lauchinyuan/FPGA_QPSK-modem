@@ -1,6 +1,8 @@
 本科学的通信读研了没在做，也算是出于兴趣完成的工程，难免有纰漏，后续会抽空将本工程逐渐完善。若有任何问题，非常欢迎您通过邮箱联系我lauchinyuan@yeah.net，共同探讨学习，不过近来比较忙，回复可能稍慢，见谅。
 
-### 更新说明
+### 重要更新说明
+
+- 2023.11.02： 之前提到，在程序烧到FPGA板子后会出现少量解调数据错误的问题，在与某位小伙伴交流的过程中， 发现在[解调器](./rtl/qpsk_demod.v)中产生解调端载波时，将鉴相器产生的相位误差信号`phase_error`传给了载波发生器模块`dds_demo_sin_inst`和`dds_demo_cos_inst`的相位控制字接口，导致载波发生器模块产生的信号`carry_sin`、`carry_cos`有了不稳定的相偏，影响了解调效果，目前还是在同一FPGA板子上进行同频同相的调制解调，故不需动态调制相偏。通过将这一控制字改为0，并进行实验，**数码管显示的时钟数据不再出错，Bug成功修复**，新的实验效果请见[Youtube](https://youtu.be/pUp5kpjEX7Y)。
 
 - 2023.08.31：有伙伴询问了有关本项目中IP核配置参数细节，现将本工程的IP核配置文件存于[xci](./xci)文件夹中，在vivado中作为source文件添加即可完成对IP core的配置。若出现"IP is locked"提示，点击vivado上方Reports -> Report IP Status，更新IP core即可，**此外需注意更改FIR滤波器配置时用到的coe文件的文件路径**。
 
@@ -8,7 +10,7 @@
 
 ### 关于本项目
 
-本项目是使用Verilog硬件描述语言编写的可以部署在FPGA平台上的正交相移键控（Quadrature Phase Shift Keying，QPSK）调制解调器，使用的调制方案为IQ正交调制，解调端使用Gardner环实现位同步，costas环载波同步暂未实现，仍在测试中。采用了vivado IP核实现FIR滤波器、乘法器、DDS直接数字频率合成器，这些IP核可以用quartus IP核或者其他厂商提供的IP来替代，系统功能演示视频参见[Youtube](https://youtu.be/K2LQohgKIu4)，MATLAB基本仿真程序在本工程[matlab](./matlab)文件夹中。
+本项目是使用Verilog硬件描述语言编写的可以部署在FPGA平台上的正交相移键控（Quadrature Phase Shift Keying，QPSK）调制解调器，使用的调制方案为IQ正交调制，解调端使用Gardner环实现位同步，costas环载波同步暂未实现，仍在测试中。采用了vivado IP核实现FIR滤波器、乘法器、DDS直接数字频率合成器，这些IP核可以用quartus IP核或者其他厂商提供的IP来替代，系统功能演示视频参见[Youtube](https://youtu.be/pUp5kpjEX7Y)，MATLAB基本仿真程序在本工程[matlab](./matlab)文件夹中。
 
 #### 功能说明
 
@@ -232,7 +234,7 @@ $$C_2=\frac{32(B_LT_s)^2}{3}$$
 
 <center> 图7. FPGA实验平台</center>
 
-从实际实验上看，在FPGA程序烧录后，开始的三秒钟数据从0秒到1秒到3秒再马上回到2秒，中间误判了一个3秒的数据，同样地在15s之前的数据也偶尔有错，15s之后的数据基本上都可以正常显示，演示视频参见[YouTube](https://youtu.be/K2LQohgKIu4)。
+从实际实验上看，在FPGA程序烧录后，时钟数据正常显示，演示视频参见[YouTube](https://youtu.be/pUp5kpjEX7Y)。
 
 首先通过MATLAB跑通QPSK调制解调的基本流程，方便确定一些基本参数（如滤波器阶数等），详细MATLAB代码可见本工程所附文件夹。
 
@@ -322,15 +324,17 @@ Gardner环NCO寄存器的值每溢出一次，产生一个`strobe_flag`标志，
 
 <center>图20. 调制端和解调端串行数据对比</center>
 
-数据有效性检测模块的仿真结果如图21所示，在检测到数据有效时`valid_flag`信号拉高，并输出此时移位寄存器里存储的有效数据值`valid_data_o`，从图中21可知，其与调制端数据生成模块`data_gen`生成的并行数据`para_o`相比具有一致性，调制解调功能初步实现。
+数据有效性检测模块的仿真结果如图21所示，在检测到数据有效时`valid_flag`信号拉高，并输出此时移位寄存器里存储的有效数据值`valid_data_o`，从图中21可知，其与调制端数据生成模块`data_gen`生成的并行数据`para_data`是一致的，只是有一定时延，调制解调功能初步实现。
 
 ![para_compare](image/para_compare.png)
 
 <center>图21. 调制端和解调端并行数据对比</center>
 
-从图中也可以看到，出现了部分数据误判的情况，这种情况在系统运行较长时间后逐渐消失，初步判断是由于一开始发送的数据0符号较多，不利于Gardner位同步的进行，所以最佳抽样判决点出现偏差所致，后续将继续完善此设计。
+从顶层模块上看并行数据的产生和传输，如图22所示。可见，待传输的并行数据`para_dat`和最终解调得到的并行数据`para_out`是一致的，QPSK调制解调功能成功实现。
 
+![](./image/para_data_trans.png)
 
+<center>图22. 调制端和解调端并行数据对比</center>
 
 ### 进展规划
 

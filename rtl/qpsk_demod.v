@@ -37,7 +37,7 @@ module qpsk_demod
         .aclk(clk_500k),                                  // input wire aclk
         .aresetn(rst_n),                            // input wire aresetn
         .s_axis_config_tvalid(1'b1),  // input wire s_axis_config_tvalid
-        .s_axis_config_tdata({{8{phase_error[15]}},phase_error}),    // input wire [23 : 0] s_axis_config_tdata
+        .s_axis_config_tdata(24'b0),    // input wire [23 : 0] s_axis_config_tdata
         .m_axis_data_tvalid(),      // output wire m_axis_data_tvalid
         .m_axis_data_tdata(carry_cos),        // output wire [7 : 0] m_axis_data_tdata
         .m_axis_phase_tvalid(),    // output wire m_axis_phase_tvalid
@@ -49,7 +49,7 @@ module qpsk_demod
         .aclk(clk_500k),                                  // input wire aclk
         .aresetn(rst_n),                            // input wire aresetn
         .s_axis_config_tvalid(1'b1),  // input wire s_axis_config_tvalid
-        .s_axis_config_tdata({{8{phase_error[15]}},phase_error}),    // input wire [23 : 0] s_axis_config_tdata
+        .s_axis_config_tdata(24'b0),    // input wire [23 : 0] s_axis_config_tdata
         .m_axis_data_tvalid(),      // output wire m_axis_data_tvalid
         .m_axis_data_tdata(carry_sin),        // output wire [7 : 0] m_axis_data_tdata
         .m_axis_phase_tvalid(),    // output wire m_axis_phase_tvalid
