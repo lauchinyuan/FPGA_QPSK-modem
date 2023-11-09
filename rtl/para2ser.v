@@ -6,7 +6,7 @@
 // 默认配置:clk为50MHz,DIV = 10000,输出码元速率即为5kHz
 //////////////////////////////////////////////////////////////////////////////////
 module para2ser
-    #(parameter DIV = 14'd10000)
+    #(parameter DIV = 14'd1000)
     (
         input wire          clk         ,
         input wire          rst_n       ,

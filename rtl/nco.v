@@ -14,7 +14,7 @@ module nco
 
     always @ (posedge clk or negedge rst_n) begin
         if(rst_n == 1'b0) begin
-            nco_reg_eta <= 17'b0_0110_0000_0000_0000    ;   //nco寄存器初始值设置为1
+            nco_reg_eta <= 17'b0_0110_0000_0000_0000    ;   //nco寄存器初始值设置为0.75
             uk <= 16'b0100_0000_0000_0000               ;   //分数间隔初始值设置为0.5
             strobe_flag <= 1'b0;
         end else if(eta_overflow) begin //nco溢出

@@ -3,11 +3,11 @@ clear all;                  % 清除所有变量
 close all;                  % 关闭所有窗口
 clc;                        % 清屏
 %% 基本参数
-M=40;                       % 产生码元数    
+M=80;                       % 产生码元数    
 L=100;                      % 每个码元采样次数
 fc=50e3;                    % 载波频率50kHz 
 % flocal = 50010;           % 接收端的本地载波频率
-flocal = 50000;             % 模拟载波频率已经同步的情况
+flocal = 50010;             % 模拟载波频率已经同步的情况
 Rb =5e3;                    % 码元速率                   
 Ts=1/Rb;                    % 码元的持续时间
 dt=Ts/L;                    % 采样间隔
@@ -15,13 +15,13 @@ TotalT=M*Ts;                % 总时间
 t=0:dt:TotalT-dt;           % 时间
 Fs=L*Rb;                    % 采样频率
 C1 = 0.00090625;
-C2 = C1 * 0.00001;
+C2 = C1 * 0.1;
 
 
 %% 产生信号源
-%wave=randi([0,1],1,M);      % 随机产生信号
+wave=randi([0,1],1,M);      % 随机产生信号
 %帧头oxcc,23时24分25秒的一个数据包，最后一字节为校验和
-wave=[1 1 0 0 1 1 0 0 0 0 0 1 0 1 1 1 0 0 0 1 1 0 0 0 0 0 0 1 1 0 0 1 0 0 0 1 0 1 0 0];
+%wave=[1 1 0 0 1 1 0 0 0 0 0 1 0 1 1 1 0 0 0 1 1 0 0 0 0 0 0 1 1 0 0 1 0 0 0 1 0 1 0 0];
 wave=2*wave-1;              % 单极性变双极性
 fz=ones(1,L);               % 定义复制的次数L,L为每码元的采样点数
 x1=wave(fz,:);              % 将原来wave的第一行复制L次，称为L*M的矩阵
@@ -62,9 +62,6 @@ qpsk=psk1+psk2;                 % QPSK的实现
 qpsk_n=awgn(qpsk,20);       % 信号qpsk中加入白噪声，信噪比为SNR=20dB
 
 %% 解调部分
-pd = zeros(1,length(t));
-pd_Q = zeros(1,length(t));
-pd_I = zeros(1,length(t));
 err_phase = zeros(1,length(t));
 phase_ctrl= zeros(1,length(t));
 %% 载波同步暂未进行
@@ -72,13 +69,48 @@ f_ctrl = 0;  % 频率修正控制字, 不进行载波同步设为0
 carry_cos_local = cos(2*pi*(flocal+f_ctrl)*t);  % 本地载波暂时和调制端相同
 carry_sin_local = sin(2*pi*(flocal+f_ctrl)*t);  % 本地载波暂时和调制端相同
 
-%利用调整后的本地载波与QPSK信号相乘
+% 利用调整后的本地载波与QPSK信号相乘
 demo_I=qpsk_n.*carry_cos_local;         % 相干解调，乘以本地相干载波
 demo_Q=qpsk_n.*carry_sin_local;  
 
 filtered_Q = double(filter(demo_lowpass,demo_Q));   %Q路低通滤波
 filtered_I = double(filter(demo_lowpass,demo_I));   %I路低通滤波
 
+% 低通滤波后进行载波同步鉴相，模拟costas环鉴相器原始输出
+inv_Q = -1*filtered_Q;
+inv_I = -1*filtered_I;
+
+% 依据I路正负选择I路待相乘的鉴相值
+% if filtered_I>=0 
+%     pd_I = filtered_Q;
+% else 
+%     pd_I = inv_Q;
+% end
+ind = find(filtered_I>=0);
+pd_I(ind) = filtered_Q(ind); 
+ind = find(filtered_I<0);
+pd_I(ind) = inv_Q(ind);
+
+% if filtered_Q>=0 
+%     pd_Q = filtered_I;
+% else 
+%     pd_Q = inv_I;
+% end
+
+% 依据Q路正负选择Q路待相乘的鉴相值
+ind = find(filtered_Q>=0);
+pd_Q(ind) = filtered_I(ind);
+ind = find(filtered_Q<0);
+pd_Q(ind) = inv_I(ind);
+
+% 鉴相器原始输出(未滤波)
+pd = pd_I - pd_Q;
+
+%鉴相器输出环路滤波
+err_phase(1) = C1*pd(1); % 滤波器输入输出第一个数据是一样的
+for i=2:length(t)
+    err_phase(i) = err_phase(i-1) + C1*pd(i)+(C2-C1)*pd(i-1);
+end
 %% 抽样判决
 k=0;                        % 设置抽样限值
 sample_d_I=1*(filtered_I>k);     % 滤波后的向量的每个元素和0进行比较，大于0为1，否则为0
@@ -117,29 +149,29 @@ x4=code(fz,:);             % 将原来code的第一行复制L次，称为L*M的矩阵
 dout=reshape(x4,1,L*M);    % 产生单极性不归零矩形脉冲波形，将刚得到的L*M矩阵，按列重新排列形成1*(L*M)的矩阵
 
 %% 绘制原始信号
-figure(1);                  % 绘制第1幅图
-subplot(311);               % 窗口分割成3*1的，当前是第1个子图 
-plot(t,baseband,'LineWidth',2);% 绘制基带码元波形，线宽为2
+figure();                   
+subplot(311);                   % 窗口分割成3*1的，当前是第1个子图 
+plot(t,baseband,'LineWidth',2); % 绘制基带码元波形，线宽为2
 title('基带信号波形');      
 xlabel('时间/s');           
 ylabel('幅度');            
 
-subplot(312);               % 窗口分割成3*1的，当前是第2个子图 
-plot(t,I_signal,'LineWidth',2);% 绘制基带码元波形，线宽为2
+subplot(312);                   % 窗口分割成3*1的，当前是第2个子图 
+plot(t,I_signal,'LineWidth',2); % 绘制基带码元波形，线宽为2
 title('I路信号波形');       
 xlabel('时间/s');           
 ylabel('幅度');             
 
-subplot(313);               % 窗口分割成3*1的，当前是第3个子图 
-plot(t,Q_signal,'LineWidth',2);% 绘制基带码元波形，线宽为2
-title('Q路信号波形');       % 标题
-xlabel('时间/s');           % x轴标签
-ylabel('幅度');             % y轴标签
-axis([0,TotalT,-1.1,1.1])  % 坐标范围限制
+subplot(313);                   % 窗口分割成3*1的，当前是第3个子图 
+plot(t,Q_signal,'LineWidth',2); % 绘制基带码元波形，线宽为2
+title('Q路信号波形');            % 标题
+xlabel('时间/s');                % x轴标签
+ylabel('幅度');                   % y轴标签
+axis([0,TotalT,-1.1,1.1])       % 坐标范围限制
 
 
 %% 绘制成形滤波后信号
-figure(2);                  
+figure();                  
 subplot(211);                
 plot(t,Q_filtered,'LineWidth',2);% 绘制成形滤波后Q路信号
 title('成形滤波后Q路波形');      % 标题
@@ -155,9 +187,9 @@ ylabel('幅度');             % y轴标签
 axis([0,TotalT,-1,1]);      % 设置坐标范围
 
 %% 绘制QPSK调制信号以及加噪后信号
-figure(3);                  
+figure();                  
 subplot(211);                
-plot(t,qpsk,'LineWidth',2);% 绘制基带码元波形，线宽为2
+plot(t,qpsk,'LineWidth',2); % 绘制基带码元波形，线宽为2
 title('QPSK信号波形');      % 标题
 xlabel('时间/s');           % x轴标签
 ylabel('幅度');             % y轴标签
@@ -170,7 +202,7 @@ xlabel('时间/s');           % x轴标签
 ylabel('幅度');             % y轴标签
 
 %% 绘制绘制IQ两路乘以本地相干载波后的信号
-figure(4);     
+figure();     
 subplot(211)                             % 窗口分割成2*1的，当前是第1个子图 
 plot(t,demo_I,'LineWidth',2)             % 绘制I路乘以相干载波后的信号
 axis([0,TotalT,-1,1]);                   % 设置坐标范围
@@ -182,14 +214,33 @@ subplot(212)                            % 窗口分割成2*1的，当前是第2个子图
 plot(t,demo_Q,'LineWidth',2)            % 绘制Q路乘以相干载波后的信号
 axis([0,TotalT,-1,1]);                  % 设置坐标范围
 title("Q路乘以相干载波后的信号")         % 标题
+xlabel('时间/s');                       % x轴标签
+ylabel('幅度');                         % y轴标签
+%% 绘制鉴相器输出
+figure();   
+subplot(311)                             
+plot(t,pd,'LineWidth',2)                
+title("鉴相器计算结果");                 % 标题
 xlabel('时间/s');                        % x轴标签
 ylabel('幅度');                          % y轴标签
-%% 绘制鉴相器输出
 
-figure(5);   
+subplot(312)                            
+plot(t,pd_I,'LineWidth',2)            
+title("I路鉴相器输入");         
+xlabel('时间/s');                        % x轴标签
+ylabel('幅度');                          % y轴标签
 
+subplot(313)                             
+plot(t,pd_Q,'LineWidth',2)         
+title("I路鉴相器输入");            
+xlabel('时间/s');                        % x轴标签
+ylabel('幅度');                          % y轴标签
+
+
+%% 载波同步鉴相器结果展示
+figure();   
 subplot(311)                             
-plot(t,pd,'LineWidth',2)                 % 绘制I路乘以相干载波后的信号
+plot(t,pd,'LineWidth',2)     % 绘制I路乘以相干载波后的信号
 title("鉴相器计算结果");                 % 标题
 xlabel('时间/s');                        % x轴标签
 ylabel('幅度');                          % y轴标签
@@ -208,7 +259,7 @@ ylabel('幅度');                          % y轴标签
 
 
 %% 绘图比较本地载波和发送端载波
-figure(6)
+figure()
 nop=300;     %由于数据很多，为了便于观察选取前nop点进行绘图
 start=1000;  %开始观察的点的索引
 subplot(211) % 窗口分割成2*1的，当前是第1个子图 
@@ -237,7 +288,7 @@ ylabel('幅度');     % y轴标签
 
 
 %% 绘制加噪信号经过低通滤波器后的信号
-figure(7);                  
+figure();                  
 subplot(211)                 
 plot(t,filtered_I,'LineWidth',2); % 绘制I路经过低通滤波器后的信号
 axis([0,TotalT,-1.1,1.1]);  % 设置坐标范围
@@ -253,7 +304,7 @@ xlabel('时间/s');
 ylabel('幅度');    
 
 %% 绘制抽样判决结果
-figure(8);
+figure();
 subplot(311)                % 窗口分割成3*1的，当前是第1个子图 
 plot(t,sample_d_I,'LineWidth',2)% 画出经过抽样判决后的信号
 axis([0,TotalT,-0.1,1.1]); % 设置坐标范围
@@ -270,7 +321,7 @@ ylabel('幅度');             % y轴标签
 
 
 %% 绘图比较调制解调的信号
-figure(9)     
+figure()     
 subplot(411)               
 plot(t,I_signal,'LineWidth',2);% 绘制基带码元波形，线宽为2
 title('I路信号波形');       
@@ -290,7 +341,7 @@ plot(t,sample_d_Q,'LineWidth',2);
 axis([0,TotalT,-0.1,1.1]); 
 title("Q路经过抽样判决后的信号");
 
-figure(10)     
+figure()     
 subplot(211)               
 plot(t,baseband,'LineWidth',2);% 绘制基带码元波形，线宽为2
 title('基带信号波形');      

@@ -4,7 +4,7 @@ module tb_qpsk_mod();
     reg         rst_n   ;
     reg [39:0]  para_i  ;
     
-    wire [32:0] qpsk    ;
+    wire [28:0] qpsk    ;
     
     initial begin
         clk = 1'b1;

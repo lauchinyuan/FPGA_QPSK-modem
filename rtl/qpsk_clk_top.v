@@ -11,7 +11,7 @@ module qpsk_clk_top
     output wire [5:0]   sel         ,
     output wire [7:0]   dig         
 );
-    wire [32:0]         qpsk    ;
+    wire [27:0]         qpsk    ;
     wire [7:0]          s_dec   ;  //秒数据
     wire [7:0]          m_dec   ;  //分数据
     wire [7:0]          h_dec   ;  //秒数据
@@ -64,7 +64,7 @@ module qpsk_clk_top
     (
         .clk        (clk        ),
         .rst_n      (rst_n      ),
-        .qpsk       (qpsk[21:0] ),  //经过仿真确认高位没有使用到
+        .qpsk       (qpsk       ),  //经过仿真确认高位没有使用到, 定点小数精度24bit
 
         .para_out   (para_out   )   //解调后的并行数据输出
     );
