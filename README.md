@@ -2,6 +2,8 @@
 
 ### 重要更新说明
 
+- 2023.11.09： **Costas环载波同步已经成功实现**， 经过仿真和实际上板测试，在解调端载波频率偏差±500Hz的情况下，解调端能正常显示数据，更高的频率偏差暂未测试。本次更新主要更新了调制解调各模块的数据位宽(Gardner位同步及以后的各模块位宽不变)、采样频率变更为1MHz，修改或加入Costas loop中的[鉴相器](./rtl/phase_detector.v)及[环路滤波器](./rtl/costas_loop_filter.v)。
+
 - 2023.11.02： 之前提到，在程序烧到FPGA板子后会出现少量解调数据错误的问题，在与某位小伙伴交流的过程中， 发现在[解调器](./rtl/qpsk_demod.v)中产生解调端载波时，将鉴相器产生的相位误差信号`phase_error`传给了载波发生器模块`dds_demo_sin_inst`和`dds_demo_cos_inst`的相位控制字接口，导致载波发生器模块产生的信号`carry_sin`、`carry_cos`有了不稳定的相偏，影响了解调效果，目前还是在同一FPGA板子上进行同频同相的调制解调，故不需动态调制相偏。通过将这一控制字改为0，并进行实验，**数码管显示的时钟数据不再出错，Bug成功修复**，新的实验效果请见[Youtube](https://youtu.be/pUp5kpjEX7Y)。
 
 - 2023.08.31：有伙伴询问了有关本项目中IP核配置参数细节，现将本工程的IP核配置文件存于[xci](./xci)文件夹中，在vivado中作为source文件添加即可完成对IP core的配置。若出现"IP is locked"提示，点击vivado上方Reports -> Report IP Status，更新IP core即可，**此外需注意更改FIR滤波器配置时用到的coe文件的文件路径**。
@@ -10,7 +12,7 @@
 
 ### 关于本项目
 
-本项目是使用Verilog硬件描述语言编写的可以部署在FPGA平台上的正交相移键控（Quadrature Phase Shift Keying，QPSK）调制解调器，使用的调制方案为IQ正交调制，解调端使用Gardner环实现位同步，costas环载波同步暂未实现，仍在测试中。采用了vivado IP核实现FIR滤波器、乘法器、DDS直接数字频率合成器，这些IP核可以用quartus IP核或者其他厂商提供的IP来替代，系统功能演示视频参见[Youtube](https://youtu.be/pUp5kpjEX7Y)，MATLAB基本仿真程序在本工程[matlab](./matlab)文件夹中。
+本项目是使用Verilog硬件描述语言编写的可以部署在FPGA平台上的正交相移键控（Quadrature Phase Shift Keying，QPSK）调制解调器，使用的调制方案为IQ正交调制，解调端使用Gardner环实现位同步，载波同步使用costas环载波实现。采用了vivado IP核实现FIR滤波器、乘法器、DDS直接数字频率合成器，这些IP核可以用quartus IP核或者其他厂商提供的IP来替代，系统功能演示视频参见[Youtube](https://youtu.be/pUp5kpjEX7Y)，MATLAB基本仿真程序在本工程[matlab](./matlab)文件夹中。
 
 #### 功能说明
 
@@ -26,22 +28,24 @@
 
 各个模块的功能解释如下：
 
-- clk_gen:时钟生成模块，产生时分秒时钟信号，用于后续生成40bit原始数据，在设计中每秒更新一次数据。
-- data_gen:数据生成模块，结合所设定的帧头，时钟数据，计算校验和，并生成40bit数据
-- qpsk_mod:调制模块，其主要子模块有
-  - para2ser:将40bit并行数据转换为串行数据流，在本设计中高位先发
-  - iq_div:将串行数据流依据其奇偶位置，分为I(正交)、Q(同向)两路
+- [clk_gen](./rtl/clk_gen.v):时钟生成模块，产生时分秒时钟信号，用于后续生成40bit原始数据，在设计中每秒更新一次数据。
+- [data_gen](./rtl/data_gen.v):数据生成模块，结合所设定的帧头，时钟数据，计算校验和，并生成40bit数据
+- [qpsk_mod](./rtl/qpsk_mod.v):调制模块，其主要子模块有
+  - [para2ser](./rtl/para2ser.v):将40bit并行数据转换为串行数据流，在本设计中高位先发
+  - [iq_div](./rtl/iq_div.v):将串行数据流依据其奇偶位置，分为I(正交)、Q(同向)两路
   - rcosfilter:升余弦滤波器，使用FIR滤波器实现，对I、Q两路数据进行成形滤波
   - dds:直接数字频率合成信号发生器，产生正弦、余弦载波
-- qpsk_demod:解调模块，其主要子模块有
-  - gardner_sync:Gardner环，用于实现位同步，判断最佳的抽样判决点，并进行抽样判决，输出抽判数据，gardner环主要的子模块有：
-    - interpolate_filter:内插滤波器，计算内插值
-    - gardner_ted:Gardner:定时误差检测，包含环形滤波器
-    - nco：nco递减计数模块，生成抽样判决标志信号
+- [qpsk_demod](./rtl/qpsk_demod.v):解调模块，其主要子模块有
+  - [gardner_sync](./rtl/gardner_sync.v): Gardner环，用于实现位同步，判断最佳的抽样判决点，并进行抽样判决，输出抽判数据，gardner环主要的子模块有：
+    - [interpolate_filter](./rtl/interpolate_filter.v):内插滤波器，计算内插值
+    - [gardner_ted](./rtl/gardner_ted.v):Gardner:定时误差检测，包含环形滤波器
+    - [nco](./rtl/nco.v)：nco递减计数模块，生成抽样判决标志信号
+  - [phase_detector](./rtl/phase_detector.v): Costas loop中的鉴相器，当解调端本地振荡器频率和调制端载波频率不同使, 输出一个带有变化方向的相位误差信号，但该信号未经过滤波，有毛刺。
+  - [costas_loop_filter](./rtl/costas_loop_filter.v):Costas loop中的环路滤波器，对phase_detector模块输出的相位误差进行滤波, 输出控制解调端本振DDS的相位偏量(Phase offset)。
   - dds:直接数字频率合成信号发生器，产生正弦、余弦载波
-  - iq_comb:将抽样判决后的I、Q两路数据重新整合成一路串行数据输出
-  - data_valid:数据有效性检测模块，检测帧头和校验和是否正确，若正确，输出最终的40bit数据结果
-- time_display:时钟数据显示模块，依据收到的40bit数据，解析时钟信息，并在数码管上显示，对数据个位和十位的分离，采用了bcd编码方案。
+  - [iq_comb](./rtl/iq_comb.v):将抽样判决后的I、Q两路数据重新整合成一路串行数据输出
+  - [data_valid](./rtl/data_valid.v):数据有效性检测模块，检测帧头和校验和是否正确，若正确，输出最终的40bit数据结果
+- [time_display](./rtl/time_display.v):时钟数据显示模块，依据收到的40bit数据，解析时钟信息，并在数码管上显示，对数据个位和十位的分离，采用了bcd编码方案。
 
 ### 设计思路
 
@@ -59,13 +63,13 @@ $$S_i(t) = Acos(\omega_ct+\theta_i),i=0,1,2,3$$
 
 通过MATLAB仿真和实际功能需求，确定本设计的相关参数如下：
 
-- 码元速率：5Kbit/s
+- 码元速率：10Kbit/s
 
-- 调制端载波频率：50kHz
+- 调制载波频率：50kHz
 
 - 帧长度：40bit
 
-- 采样率：500kHz
+- 采样率：1MHz
 
 - 成形滤波器
   
@@ -80,7 +84,7 @@ $$S_i(t) = Acos(\omega_ct+\theta_i),i=0,1,2,3$$
 
 综上，每秒可以传送的帧数为：
 
-$$N_f =500000 \div (40\times 100)=125$$
+$$N_f =1000000 \div (40\times 100)=500$$
 
 #### 调制端设计
 
