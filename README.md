@@ -170,7 +170,7 @@ $$Q'(t)=\frac{1}{2}sin(\phi-\theta)$$
 
  $$S_i(t) = \sqrt{2}cos(\omega_ct+\pi/4)$$
 
-其中， $\omega_c$为调制端载波频率，同时设解调端振荡器频率为$\omega_l$， 则QPSK信号与解调端频率相乘后有I路：
+其中， $\omega_c$为调制端载波频率，同时设解调端振荡器频率为 $\omega_l$， 则QPSK信号与解调端频率相乘后有I路：
 
 $$I(t)=QPSK(t)cos(\omega_lt)=\frac{\sqrt{2}}{2}\{cos[(\omega_c-\omega_l)t+\frac{\pi}{4}]+cos[(\omega_c+\omega_l)t+\frac{\pi}{4}]\}$$
 
@@ -222,7 +222,7 @@ $$phase\\_error =\frac{\sqrt{2}}{2}\{cos[(\omega_c-\omega_l)t+\frac{\pi}{4}]-sin
 
 $$phase\\_error =-sin[(\omega_c-\omega_l)t]$$
 
-一般来说，解调端本地载波频率 $\omega_l$与调制端载波频率$\omega_c$的频率偏差需控制在一定范围，即$\omega_c-\omega_l$不大，则 $-sin[(\omega_c-\omega_l)t] \approx (\omega_l-\omega_c)t$，即**I、Q两路信号的相位偏差，`phase_error`的斜率反映了调制解调端载波频率差的大小**。
+一般来说，解调端本地载波频率 $\omega_l$与调制端载波频率 $\omega_c$的频率偏差需控制在一定范围，即 $\omega_c-\omega_l$不大，则 $-sin[(\omega_c-\omega_l)t] \approx (\omega_l-\omega_c)t$，即**I、Q两路信号的相位偏差，`phase_error`的斜率反映了调制解调端载波频率差的大小**。
 
 注意：以上推导之表达式并未考虑调制端成形滤波及解调端低通滤波效果，是理想的信号模型表达式，但亦可帮助理解鉴相器的工作原理。
 
