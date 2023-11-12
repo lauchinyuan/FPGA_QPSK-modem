@@ -1,4 +1,5 @@
-% QPSK调制解调基本过程仿真，不包括载波同步
+% QPSK调制解调基本过程仿真，不包括载波同步(costas环滤波输出没有接回NCO)
+% 带costas loop的仿真脚本请见 qpsk_modem_costas.m
 clear all;                  % 清除所有变量
 close all;                  % 关闭所有窗口
 clc;                        % 清屏
@@ -7,8 +8,8 @@ M=80;                       % 产生码元数
 L=100;                      % 每个码元采样次数
 fc=50e3;                    % 载波频率50kHz 
 % flocal = 50010;           % 接收端的本地载波频率
-flocal = 50010;             % 模拟载波频率已经同步的情况
-Rb =5e3;                    % 码元速率                   
+flocal = 50000;             % 模拟载波频率已经同步的情况
+Rb =10e3;                   % 码元速率                   
 Ts=1/Rb;                    % 码元的持续时间
 dt=Ts/L;                    % 采样间隔
 TotalT=M*Ts;                % 总时间
@@ -65,9 +66,8 @@ qpsk_n=awgn(qpsk,20);       % 信号qpsk中加入白噪声，信噪比为SNR=20dB
 err_phase = zeros(1,length(t));
 phase_ctrl= zeros(1,length(t));
 %% 载波同步暂未进行
-f_ctrl = 0;  % 频率修正控制字, 不进行载波同步设为0
-carry_cos_local = cos(2*pi*(flocal+f_ctrl)*t);  % 本地载波暂时和调制端相同
-carry_sin_local = sin(2*pi*(flocal+f_ctrl)*t);  % 本地载波暂时和调制端相同
+carry_cos_local = carry_cos;  % 本地载波暂时和调制端相同
+carry_sin_local = carry_sin;  % 本地载波暂时和调制端相同
 
 % 利用调整后的本地载波与QPSK信号相乘
 demo_I=qpsk_n.*carry_cos_local;         % 相干解调，乘以本地相干载波
@@ -363,37 +363,37 @@ axis([0,TotalT,-1.1,1.1])  % 坐标范围限制
 
 
 %% 将仿真波形输出为txt文本作为testbench数据输入
-Width = 15; %数据位宽
-I_n=round(filtered_I*(2^(Width)-1));
-Q_n=round(filtered_Q*(2^(Width)-1));
-fid=fopen('dataI.txt','w');     
-for k=1:length(I_n)
-    B_s=dec2bin(I_n(k)+((I_n(k))<0)*2^Width,Width);
-    for j=1:Width
-        if B_s(j)=='1'
-            tb=1;
-        else
-            tb=0;
-        end
-        fprintf(fid,'%d',tb);
-    end
-    fprintf(fid,'\r\n');
-end
-fprintf(fid,';');
-fclose(fid);
-
-fid=fopen('dataQ.txt','w');     
-for k=1:length(Q_n)
-    B_s=dec2bin(Q_n(k)+((Q_n(k))<0)*2^Width,Width);
-    for j=1:Width
-        if B_s(j)=='1'
-            tb=1;
-        else
-            tb=0;
-        end
-        fprintf(fid,'%d',tb);
-    end
-    fprintf(fid,'\r\n');
-end
-fprintf(fid,';');
-fclose(fid);
+% Width = 15; %数据位宽
+% I_n=round(filtered_I*(2^(Width)-1));
+% Q_n=round(filtered_Q*(2^(Width)-1));
+% fid=fopen('dataI.txt','w');     
+% for k=1:length(I_n)
+%     B_s=dec2bin(I_n(k)+((I_n(k))<0)*2^Width,Width);
+%     for j=1:Width
+%         if B_s(j)=='1'
+%             tb=1;
+%         else
+%             tb=0;
+%         end
+%         fprintf(fid,'%d',tb);
+%     end
+%     fprintf(fid,'\r\n');
+% end
+% fprintf(fid,';');
+% fclose(fid);
+% 
+% fid=fopen('dataQ.txt','w');     
+% for k=1:length(Q_n)
+%     B_s=dec2bin(Q_n(k)+((Q_n(k))<0)*2^Width,Width);
+%     for j=1:Width
+%         if B_s(j)=='1'
+%             tb=1;
+%         else
+%             tb=0;
+%         end
+%         fprintf(fid,'%d',tb);
+%     end
+%     fprintf(fid,'\r\n');
+% end
+% fprintf(fid,';');
+% fclose(fid);

@@ -16,7 +16,9 @@
 
 ### 关于本项目
 
-本项目是使用Verilog硬件描述语言编写的可以部署在FPGA平台上的正交相移键控（Quadrature Phase Shift Keying，QPSK）调制解调器，使用的调制方案为IQ正交调制，解调端使用Gardner环实现位同步，载波同步使用costas环载波实现。采用了vivado IP核实现FIR滤波器、乘法器、DDS直接数字频率合成器，这些IP核可以用quartus IP核或者其他厂商提供的IP来替代，系统功能演示视频参见[Youtube](https://youtu.be/pUp5kpjEX7Y)或[bilibili](https://www.bilibili.com/video/BV1Yg4y197j2/?spm_id_from=333.999.0.0&vd_source=17eb63300d5f6af8fe8a5e3e03a0126c)，MATLAB基本仿真程序在本工程[matlab](./matlab)文件夹中。
+本项目是使用Verilog硬件描述语言编写的可以部署在FPGA平台上的正交相移键控（Quadrature Phase Shift Keying，QPSK）调制解调器，使用的调制方案为IQ正交调制，解调端使用Gardner环实现位同步，载波同步使用costas环载波实现。采用了vivado IP核实现FIR滤波器、乘法器、DDS直接数字频率合成器，这些IP核可以用quartus IP核或者其他厂商提供的IP来替代，系统功能演示视频参见[Youtube](https://youtu.be/pUp5kpjEX7Y)或[bilibili](https://www.bilibili.com/video/BV1Yg4y197j2/?spm_id_from=333.999.0.0&vd_source=17eb63300d5f6af8fe8a5e3e03a0126c)。
+
+MATLAB基本仿真程序在本工程[matlab](./matlab)文件夹中， 其中[basic](./matlab/qpsk_modem_basic.m)模块是QPSK基本调制解调过程的软件仿真，不带costa环反馈调整，[costas](./matlab/qpsk_modem_costas.m)模块包括costas环相位调整，程序运行时间相对较长。
 
 #### 功能说明
 
