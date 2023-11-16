@@ -80,9 +80,9 @@ module costas_loop_filter
     //y(n)-y(n-1)=c1*(x(n)-x(n-1))+c2*x(n-1)
     always@(*) begin
         if(cnt_update == 'd1999) begin //跟踪状态使用小参数
-            pd_sub = {{4{pd_err_sub[57]}}, pd_err_sub[57:38]} + {{7{pd_err_d[57]}},pd_err_d[57:41]};
+            pd_sub = {{3{pd_err_sub[57]}}, pd_err_sub[57:37]} + {{6{pd_err_d[57]}},pd_err_d[57:40]};
         end else begin //捕获状态使用大参数
-            pd_sub = {{{pd_err_sub[57]}}, pd_err_sub[57:35]} + {{4{pd_err_d[57]}},pd_err_d[57:38]};
+            pd_sub = pd_err_sub[57:34] + {{3{pd_err_d[57]}},pd_err_d[57:37]};
         end
     end
     

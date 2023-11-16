@@ -18,8 +18,8 @@ module qpsk_mod
     wire [23:0] Q_filtered  ;
     wire [7:0]  carry_sin   ;
     wire [7:0]  carry_cos   ;   
-    wire [28:0] qpsk_i      ;
-    wire [28:0] qpsk_q      ;
+    wire [27:0] qpsk_i      ;
+    wire [27:0] qpsk_q      ;
     
     //产生1MHz采样时钟
     sam_clk_gen sam_clk_gen_inst(
@@ -105,13 +105,13 @@ module qpsk_mod
 
 
     
-    //I路滤波后与cos载波相乘
+    //I路滤波后与cos载波相乘, 成形滤波结果低位截断、相当于增益降低
     mul_mod mul_mod_I
     (
         .CLK(clk_sam),                      // input wire CLK
-        .A(I_filtered[20:0]),               // input wire [20 : 0] A, 19bit小数位
-        .B(carry_cos     ),                 // input wire [7 : 0] B, 6bit小数位
-        .P(qpsk_i)                          // output wire [28 : 0] P, 25bit小数位
+        .A(I_filtered[20:1]),               // input wire [19 : 0] A
+        .B(carry_cos     ),                 // input wire [7 : 0] B
+        .P(qpsk_i)                          // output wire [27 : 0] P
     );
         
        
@@ -120,15 +120,14 @@ module qpsk_mod
     mul_mod mul_mod_Q
     (
         .CLK(clk_sam),                      // input wire CLK
-        .A(Q_filtered[20:0]),               // input wire [20 : 0] A, 19bit小数位
-        .B(carry_sin     ),                 // input wire [7 : 0] B, 6bit小数位
-        .P(qpsk_q)                          // output wire [28 : 0] P, 25bit小数位
+        .A(Q_filtered[20:1]),               // input wire [19 : 0] A
+        .B(carry_sin     ),                 // input wire [7 : 0] B
+        .P(qpsk_q)                          // output wire [27 : 0] P
     );  
       
     
     //IQ两路信号叠加
-    //舍去qpsk_q、qpsk_i高位符号位
-    assign qpsk = qpsk_i[27:0] + qpsk_q[27:0]; //25bit小数位
+    assign qpsk = qpsk_i + qpsk_q; 
     
     
 endmodule
