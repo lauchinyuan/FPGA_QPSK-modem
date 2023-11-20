@@ -11,7 +11,7 @@ function Hd = rcosfilter
 Fs = 1000;  % Sampling Frequency
 
 N    = 40;         % Order
-Fc   = 5;          % Cutoff Frequency
+Fc   = 25;         % Cutoff Frequency
 TM   = 'Rolloff';  % Transition Mode
 R    = 0.25;       % Rolloff
 DT   = 'sqrt';     % Design Type
