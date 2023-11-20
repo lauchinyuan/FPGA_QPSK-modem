@@ -39,7 +39,7 @@ module para2ser
         end else if((bit_cnt == 6'd39) && (div_cnt == DIV - 1)) begin
             bit_cnt <= 6'd0;
         end else if(div_cnt == DIV - 1) begin
-            bit_cnt <= bit_cnt + 14'd1;
+            bit_cnt <= bit_cnt + 6'd1;
         end else begin
             bit_cnt <= bit_cnt;
         end
