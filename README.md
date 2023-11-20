@@ -12,7 +12,7 @@
 
 - 2023.08.31：有伙伴询问了有关本项目中IP核配置参数细节，现将本工程的IP核配置文件存于[xci](./xci)文件夹中，在vivado中作为source文件添加即可完成对IP core的配置。若出现"IP is locked"提示，点击vivado上方Reports -> Report IP Status，更新IP core即可，**此外需注意更改FIR滤波器配置时用到的coe文件的文件路径**。
 
-  若您暂无vivado，需要查看有关IP core的配置信息，可以查看[ip_core_config](./ip_core_config)文件夹，内含以图片方式保存的IP核配置信息，由于近来较忙，先不对其展开说明，以后再说(🕊)。
+  若您暂无vivado，需要查看有关IP core的配置信息，可以查看[ip_core_config](./ip_core_config)文件夹，内含以图片方式保存的IP核配置信息，由于近来较忙，先不对其展开说明，以后再说了(🕊)。
 
 ### 关于本项目
 
