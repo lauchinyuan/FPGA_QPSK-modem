@@ -1,0 +1,677 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Product Version: Vivado v2018.3 (64-bit)              -->
+<!--                                                         -->
+<!-- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.   -->
+
+<Project Version="7" Minor="39" Path="C:/Users/Lau Chinyuan/Desktop/github_QPSK/github_QPSK.xpr">
+  <DefaultLaunch Dir="$PRUNDIR"/>
+  <Configuration>
+    <Option Name="Id" Val="a01e211867c3490b9bafc611ed05afae"/>
+    <Option Name="Part" Val="xc7k325tffg676-2"/>
+    <Option Name="CompiledLibDir" Val="$PPRDIR/../../../../modeltech64_10.5/vivado_lib"/>
+    <Option Name="CompiledLibDirXSim" Val=""/>
+    <Option Name="CompiledLibDirModelSim" Val="$PPRDIR/../../../../modeltech64_10.5/vivado_lib"/>
+    <Option Name="CompiledLibDirQuesta" Val="$PCACHEDIR/compile_simlib/questa"/>
+    <Option Name="CompiledLibDirIES" Val="$PCACHEDIR/compile_simlib/ies"/>
+    <Option Name="CompiledLibDirXcelium" Val="$PCACHEDIR/compile_simlib/xcelium"/>
+    <Option Name="CompiledLibDirVCS" Val="$PCACHEDIR/compile_simlib/vcs"/>
+    <Option Name="CompiledLibDirRiviera" Val="$PCACHEDIR/compile_simlib/riviera"/>
+    <Option Name="CompiledLibDirActivehdl" Val="$PCACHEDIR/compile_simlib/activehdl"/>
+    <Option Name="TargetSimulator" Val="ModelSim"/>
+    <Option Name="BoardPart" Val=""/>
+    <Option Name="ActiveSimSet" Val="sim_1"/>
+    <Option Name="DefaultLib" Val="xil_defaultlib"/>
+    <Option Name="ProjectType" Val="Default"/>
+    <Option Name="IPOutputRepo" Val="$PCACHEDIR/ip"/>
+    <Option Name="IPCachePermission" Val="read"/>
+    <Option Name="IPCachePermission" Val="write"/>
+    <Option Name="EnableCoreContainer" Val="FALSE"/>
+    <Option Name="CreateRefXciForCoreContainers" Val="FALSE"/>
+    <Option Name="IPUserFilesDir" Val="$PIPUSERFILESDIR"/>
+    <Option Name="IPStaticSourceDir" Val="$PIPUSERFILESDIR/ipstatic"/>
+    <Option Name="EnableBDX" Val="FALSE"/>
+    <Option Name="DSAVendor" Val="xilinx"/>
+    <Option Name="DSANumComputeUnits" Val="60"/>
+    <Option Name="WTXSimLaunchSim" Val="1"/>
+    <Option Name="WTModelSimLaunchSim" Val="15"/>
+    <Option Name="WTQuestaLaunchSim" Val="0"/>
+    <Option Name="WTIesLaunchSim" Val="0"/>
+    <Option Name="WTVcsLaunchSim" Val="0"/>
+    <Option Name="WTRivieraLaunchSim" Val="0"/>
+    <Option Name="WTActivehdlLaunchSim" Val="0"/>
+    <Option Name="WTXSimExportSim" Val="23"/>
+    <Option Name="WTModelSimExportSim" Val="23"/>
+    <Option Name="WTQuestaExportSim" Val="23"/>
+    <Option Name="WTIesExportSim" Val="23"/>
+    <Option Name="WTVcsExportSim" Val="23"/>
+    <Option Name="WTRivieraExportSim" Val="23"/>
+    <Option Name="WTActivehdlExportSim" Val="23"/>
+    <Option Name="GenerateIPUpgradeLog" Val="TRUE"/>
+    <Option Name="XSimRadix" Val="hex"/>
+    <Option Name="XSimTimeUnit" Val="ns"/>
+    <Option Name="XSimArrayDisplayLimit" Val="1024"/>
+    <Option Name="XSimTraceLimit" Val="65536"/>
+    <Option Name="SimTypes" Val="rtl"/>
+    <Option Name="SimTypes" Val="bfm"/>
+    <Option Name="SimTypes" Val="tlm"/>
+    <Option Name="SimTypes" Val="tlm_dpi"/>
+    <Option Name="MEMEnableMemoryMapGeneration" Val="TRUE"/>
+  </Configuration>
+  <FileSets Version="1" Minor="31">
+    <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
+      <Filter Type="Srcs"/>
+      <File Path="$PSRCDIR/sources_1/ip/demo_lowpass/demo_lowpass.xci">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/xci/demo_lowpass.xci"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/ip/rcosfilter/rcosfilter.xci">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/xci/rcosfilter.xci"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/rtl/clk_gen.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/rtl/clk_gen.v"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/rtl/costas_loop_filter.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/rtl/costas_loop_filter.v"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/rtl/data_gen.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/rtl/data_gen.v"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/rtl/data_valid.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/rtl/data_valid.v"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/rtl/dec2bcd.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/rtl/dec2bcd.v"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/rtl/gardner_sync.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/rtl/gardner_sync.v"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/rtl/gardner_ted.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/rtl/gardner_ted.v"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/rtl/interpolate_filter.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/rtl/interpolate_filter.v"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/rtl/iq_comb.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/rtl/iq_comb.v"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/rtl/iq_div.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/rtl/iq_div.v"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/rtl/nco.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/rtl/nco.v"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/rtl/para2ser.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/rtl/para2ser.v"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/rtl/phase_detector.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/rtl/phase_detector.v"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/rtl/qpsk_demod.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/rtl/qpsk_demod.v"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/rtl/qpsk_mod.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/rtl/qpsk_mod.v"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/rtl/sam_clk_gen.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/rtl/sam_clk_gen.v"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/rtl/seg_display.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/rtl/seg_display.v"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/rtl/time_display.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/rtl/time_display.v"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/rtl/qpsk_clk_top.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/rtl/qpsk_clk_top.v"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/rtl/ser2para.v">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/rtl/ser2para.v"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/coe/demo_lowpass.coe">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/coe/rcosfilter.coe">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <Config>
+        <Option Name="DesignMode" Val="RTL"/>
+        <Option Name="TopModule" Val="qpsk_clk_top"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="constrs_1" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+      <Filter Type="Constrs"/>
+      <File Path="$PSRCDIR/constrs_1/imports/constrs/qpsk_clk_top.xdc">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/constrs/qpsk_clk_top.xdc"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+        </FileInfo>
+      </File>
+      <Config>
+        <Option Name="ConstrsType" Val="XDC"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="sim_1" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/sim_1">
+      <Filter Type="Srcs"/>
+      <File Path="$PSRCDIR/sim_1/imports/testbench/tb_qpsk_clk_top.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/testbench/tb_qpsk_clk_top.v"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <Config>
+        <Option Name="DesignMode" Val="RTL"/>
+        <Option Name="TopModule" Val="tb_qpsk_clk_top"/>
+        <Option Name="TopLib" Val="xil_defaultlib"/>
+        <Option Name="TopAutoSet" Val="TRUE"/>
+        <Option Name="TransportPathDelay" Val="0"/>
+        <Option Name="TransportIntDelay" Val="0"/>
+        <Option Name="SimMode" Val="post-implementation"/>
+        <Option Name="SrcSet" Val="sources_1"/>
+        <Option Name="Incremental" Val="0"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="utils_1" Type="Utils" RelSrcDir="$PSRCDIR/utils_1">
+      <Filter Type="Utils"/>
+      <Config>
+        <Option Name="TopAutoSet" Val="TRUE"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="mult_interploate" Type="BlockSrcs" RelSrcDir="$PSRCDIR/mult_interploate">
+      <File Path="$PSRCDIR/sources_1/ip/mult_interploate/mult_interploate.xci">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/xci/mult_interploate.xci"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <Config>
+        <Option Name="TopModule" Val="mult_interploate"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="mul_demo" Type="BlockSrcs" RelSrcDir="$PSRCDIR/mul_demo">
+      <File Path="$PSRCDIR/sources_1/ip/mul_demo/mul_demo.xci">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/xci/mul_demo.xci"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <Config>
+        <Option Name="TopModule" Val="mul_demo"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="dds_demo_sin" Type="BlockSrcs" RelSrcDir="$PSRCDIR/dds_demo_sin">
+      <File Path="$PSRCDIR/sources_1/ip/dds_demo_sin/dds_demo_sin.xci">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/xci/dds_demo_sin.xci"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <Config>
+        <Option Name="TopModule" Val="dds_demo_sin"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="dds_demo_cos" Type="BlockSrcs" RelSrcDir="$PSRCDIR/dds_demo_cos">
+      <File Path="$PSRCDIR/sources_1/ip/dds_demo_cos/dds_demo_cos.xci">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/xci/dds_demo_cos.xci"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <Config>
+        <Option Name="TopModule" Val="dds_demo_cos"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="mul_mod" Type="BlockSrcs" RelSrcDir="$PSRCDIR/mul_mod">
+      <File Path="$PSRCDIR/sources_1/ip/mul_mod/mul_mod.xci">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/xci/mul_mod.xci"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <Config>
+        <Option Name="TopModule" Val="mul_mod"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="dds_sin" Type="BlockSrcs" RelSrcDir="$PSRCDIR/dds_sin">
+      <File Path="$PSRCDIR/sources_1/ip/dds_sin/dds_sin.xci">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/xci/dds_sin.xci"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <Config>
+        <Option Name="TopModule" Val="dds_sin"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="dds_cos" Type="BlockSrcs" RelSrcDir="$PSRCDIR/dds_cos">
+      <File Path="$PSRCDIR/sources_1/ip/dds_cos/dds_cos.xci">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../FPGA_QPSK-modem-master/FPGA_QPSK-modem-master/xci/dds_cos.xci"/>
+          <Attr Name="ImportTime" Val="1700469680"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <Config>
+        <Option Name="TopModule" Val="dds_cos"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+  </FileSets>
+  <Simulators>
+    <Simulator Name="XSim">
+      <Option Name="Description" Val="Vivado Simulator"/>
+      <Option Name="CompiledLib" Val="0"/>
+    </Simulator>
+    <Simulator Name="ModelSim">
+      <Option Name="Description" Val="ModelSim Simulator"/>
+    </Simulator>
+    <Simulator Name="Questa">
+      <Option Name="Description" Val="Questa Advanced Simulator"/>
+    </Simulator>
+    <Simulator Name="Riviera">
+      <Option Name="Description" Val="Riviera-PRO Simulator"/>
+    </Simulator>
+    <Simulator Name="ActiveHDL">
+      <Option Name="Description" Val="Active-HDL Simulator"/>
+    </Simulator>
+  </Simulators>
+  <Runs Version="1" Minor="10">
+    <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7k325tffg676-2" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" State="current" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="mult_interploate_synth_1" Type="Ft3:Synth" SrcSet="mult_interploate" Part="xc7k325tffg676-2" ConstrsSet="mult_interploate" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018"/>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="mul_demo_synth_1" Type="Ft3:Synth" SrcSet="mul_demo" Part="xc7k325tffg676-2" ConstrsSet="mul_demo" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018"/>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="dds_demo_sin_synth_1" Type="Ft3:Synth" SrcSet="dds_demo_sin" Part="xc7k325tffg676-2" ConstrsSet="dds_demo_sin" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018"/>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="dds_demo_cos_synth_1" Type="Ft3:Synth" SrcSet="dds_demo_cos" Part="xc7k325tffg676-2" ConstrsSet="dds_demo_cos" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018"/>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="mul_mod_synth_1" Type="Ft3:Synth" SrcSet="mul_mod" Part="xc7k325tffg676-2" ConstrsSet="mul_mod" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018"/>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="dds_sin_synth_1" Type="Ft3:Synth" SrcSet="dds_sin" Part="xc7k325tffg676-2" ConstrsSet="dds_sin" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018"/>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="dds_cos_synth_1" Type="Ft3:Synth" SrcSet="dds_cos" Part="xc7k325tffg676-2" ConstrsSet="dds_cos" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018"/>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xc7k325tffg676-2" ConstrsSet="constrs_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" State="current" SynthRun="synth_1" IncludeInArchive="true" GenFullBitstream="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
+          <Desc>Default settings for Implementation.</Desc>
+        </StratHandle>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="mult_interploate_impl_1" Type="Ft2:EntireDesign" Part="xc7k325tffg676-2" ConstrsSet="mult_interploate" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mult_interploate_synth_1" IncludeInArchive="false" GenFullBitstream="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018"/>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="mul_demo_impl_1" Type="Ft2:EntireDesign" Part="xc7k325tffg676-2" ConstrsSet="mul_demo" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mul_demo_synth_1" IncludeInArchive="false" GenFullBitstream="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018"/>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="dds_demo_sin_impl_1" Type="Ft2:EntireDesign" Part="xc7k325tffg676-2" ConstrsSet="dds_demo_sin" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="dds_demo_sin_synth_1" IncludeInArchive="false" GenFullBitstream="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018"/>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="dds_demo_cos_impl_1" Type="Ft2:EntireDesign" Part="xc7k325tffg676-2" ConstrsSet="dds_demo_cos" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="dds_demo_cos_synth_1" IncludeInArchive="false" GenFullBitstream="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018"/>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="mul_mod_impl_1" Type="Ft2:EntireDesign" Part="xc7k325tffg676-2" ConstrsSet="mul_mod" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mul_mod_synth_1" IncludeInArchive="false" GenFullBitstream="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018"/>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="dds_sin_impl_1" Type="Ft2:EntireDesign" Part="xc7k325tffg676-2" ConstrsSet="dds_sin" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="dds_sin_synth_1" IncludeInArchive="false" GenFullBitstream="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018"/>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="dds_cos_impl_1" Type="Ft2:EntireDesign" Part="xc7k325tffg676-2" ConstrsSet="dds_cos" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="dds_cos_synth_1" IncludeInArchive="false" GenFullBitstream="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018"/>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+  </Runs>
+  <Board/>
+  <DashboardSummary Version="1" Minor="0">
+    <Dashboards>
+      <Dashboard Name="default_dashboard">
+        <Gadgets>
+          <Gadget Name="drc_1" Type="drc" Version="1" Row="2" Column="0">
+            <GadgetParam Name="REPORTS" Type="string_list" Value="impl_1#impl_1_route_report_drc_0 "/>
+          </Gadget>
+          <Gadget Name="methodology_1" Type="methodology" Version="1" Row="2" Column="1">
+            <GadgetParam Name="REPORTS" Type="string_list" Value="impl_1#impl_1_route_report_methodology_0 "/>
+          </Gadget>
+          <Gadget Name="power_1" Type="power" Version="1" Row="1" Column="0">
+            <GadgetParam Name="REPORTS" Type="string_list" Value="impl_1#impl_1_route_report_power_0 "/>
+          </Gadget>
+          <Gadget Name="timing_1" Type="timing" Version="1" Row="0" Column="1">
+            <GadgetParam Name="REPORTS" Type="string_list" Value="impl_1#impl_1_route_report_timing_summary_0 "/>
+          </Gadget>
+          <Gadget Name="utilization_1" Type="utilization" Version="1" Row="0" Column="0">
+            <GadgetParam Name="REPORTS" Type="string_list" Value="synth_1#synth_1_synth_report_utilization_0 "/>
+            <GadgetParam Name="RUN.STEP" Type="string" Value="synth_design"/>
+            <GadgetParam Name="RUN.TYPE" Type="string" Value="synthesis"/>
+          </Gadget>
+          <Gadget Name="utilization_2" Type="utilization" Version="1" Row="1" Column="1">
+            <GadgetParam Name="REPORTS" Type="string_list" Value="impl_1#impl_1_place_report_utilization_0 "/>
+          </Gadget>
+        </Gadgets>
+      </Dashboard>
+      <CurrentDashboard>default_dashboard</CurrentDashboard>
+    </Dashboards>
+  </DashboardSummary>
+  <BootPmcSettings Version="1" Minor="0">
+    <Parameters/>
+  </BootPmcSettings>
+</Project>
